@@ -58,11 +58,15 @@ Install WSL
 	sudo cp /mnt/c/Users/dschwant/Documents/GitHub/mri_to_3d/202004_DS_Brain_MRI/1131_T2_raw.nii.gz .
 	recon-all -i 1131_T2_raw.nii.gz -s DS_T2 -all
 14) Errored, trying again:
-recon-all -i 1131_MPRAGE_raw.nii.gz -s DS_MPRAGE -all
-mris_convert ~/freesurfer/subjects/DS_MPRAGE/surf/rh.pial rh.stl
-mris_convert ~/freesurfer/subjects/DS_MPRAGE/surf/lh.pial lh.stl
+	cd ~/freesurfer
+	sudo cp /mnt/c/Users/dschwant/Documents/GitHub/mri_to_3d/202004_DS_Brain_MRI/1131_MPRAGE_raw.nii.gz .
+	recon-all -i 1131_MPRAGE_raw.nii.gz -s DS_MPRAGE -all
+	mris_convert ~/freesurfer/subjects/DS_MPRAGE/surf/rh.pial rh.stl
+	mris_convert ~/freesurfer/subjects/DS_MPRAGE/surf/lh.pial lh.stl
 
 15) Copied resultsing STL to wintemp dir:
+	cd subjects/DS_MPRAGE/surf/
+	sudo cp *.stl /mnt/c/Temp/
 
 16) Try fresurf visualization:
 cd ~/freesurfer/subjects/DS_MPRAGE
@@ -76,6 +80,28 @@ freeview -v \
     surf/lh.pial:edgecolor=red \
     surf/rh.white:edgecolor=blue \
     surf/rh.pial:edgecolor=red
+
+###### error while loading shared libraries: libGLU.so.1
+sudo apt-get -y install libglu1
+sudo apt-get -y install libfontconfig1 libxrender1
+
+sudo add-apt-repository ppa:linuxuprising/libpng12
+sudo apt update
+sudo apt install libpng12-0
+
+17) Try on largest nii:
+	cd ~/freesurfer
+	sudo cp /mnt/c/Users/dschwant/Documents/GitHub/mri_to_3d/202004_DS_Brain_MRI/1131_dwi.nii.gz .
+	recon-all -i 1131_dwi.nii.gz -s DS_dwi -all
+
+/home/dschwant/freesurfer/subjects/DS_dwi/scripts/recon-all.log
 ---------------
+Setting up AFNI to use ISOSurface
+https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/background_install/install_instructs/steps_linux_ubuntu18.html
+
+IsoSurface -isoval 1 -input binary.nii -Tsmooth 0.1 100  -remesh 0.5 -overwrite -autocrop -o Output.stl
+
 ---------------
 https://www.thegeekdiary.com/basic-vi-commands-cheat-sheet/
+
+https://github.com/miykael/3dprintyourbrain
