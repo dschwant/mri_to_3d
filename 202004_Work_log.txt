@@ -1,0 +1,64 @@
+---------------
+2020-04-08 17:39
+---------------
+- Got files from Ian on thumb drive
+- Pulled out of GZ:
+
+	/mnt/c/Users/dschwant/Documents/GitHub/mri_to_3d/202004_DS_Brain_MRI/
+	total 1220952
+	drwxrwxrwx 1 dschwant dschwant      4096 Apr  8 16:11 ./
+	drwxrwxrwx 1 dschwant dschwant      4096 Apr  8 17:39 ../
+	-rwxrwxrwx 1 dschwant dschwant  41785488 Feb 20 11:02 1131_MPRAGE_raw.nii*
+	-rwxrwxrwx 1 dschwant dschwant  17351605 Feb 20 11:02 1131_MPRAGE_raw.nii.gz*
+	-rwxrwxrwx 1 dschwant dschwant  41785488 Feb 20 11:02 1131_T2_raw.nii*
+	-rwxrwxrwx 1 dschwant dschwant  13442996 Feb 20 11:02 1131_T2_raw.nii.gz*
+	-rwxrwxrwx 1 dschwant dschwant      5772 Feb  4 11:53 1131_dwi.bvec*
+	-rwxrwxrwx 1 dschwant dschwant 620928352 Feb  4 12:17 1131_dwi.nii*
+	-rwxrwxrwx 1 dschwant dschwant 514941170 Feb  4 12:17 1131_dwi.nii.gz*
+	-rwxrwxrwx 1 dschwant dschwant       477 Feb 17 10:20 bvals*
+
+- NII files, not dicom!
+- https://layerfmri.com/2018/07/25/3d-printing-nii-data/
+- http://freesurfer.net/fswiki/DownloadAndInstall
+
+~->!0irwfJ5!~/
+---------------
+Install WSL 
+---------------
+- https://arstechnica.com/information-technology/2020/03/the-windows-subsystem-for-linux-conference-was-a-virtual-success/
+- https://superuser.com/questions/1271682/is-there-a-way-of-installing-ubuntu-windows-subsystem-for-linux-on-win10-v170
+- https://www.digitalcitizen.life/how-get-linux-bash-windows-10-3-steps
+- https://docs.microsoft.com/en-us/windows/wsl/faq
+
+1) Win10 serach for features, "Turn Windows features on or off"
+2) Choose "Windows Subsystem for Linux", reboot.
+3) Run Powershell as Admin to get and install appx (since ASML locks down Windows Store):
+	Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile "$Home\Downloads\Ubuntu1804.appx" -UseBasicParsing
+	Add-AppxPackage -Path "$Home\Downloads\Ubuntu1804.appx"
+
+4) Run "Ubuntu 18.04" from Start.
+5) Username and password.
+6) Make sure not on the ASML network (stuff blocked):
+	sudo apt update && sudo apt upgrade
+
+7) Pull Freesurfer install to c:\temp\ using Chrome (http://freesurfer.net/fswiki/DownloadAndInstall).
+8) Unzip install of Freesurfer
+	sudo tar -C /usr/local -xzvf /mnt/c/Temp/freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.0.tar.gz
+9) Install some other stuff
+	sudo apt-get update
+	sudo apt-get -y install bc binutils libgomp1 perl psmisc sudo tar tcsh unzip uuid-dev vim-common libjpeg62-dev
+10) Add these to .bashrc
+	export FREESURFER_HOME=/usr/local/freesurfer
+	source $FREESURFER_HOME/SetUpFreeSurfer.sh
+	export SUBJECTS_DIR=~/freesurfer/subjects
+11) Obtain and place freesurfer license.
+12) Test freesurfer (follow 1st test from web page after "cd ~/freesurfer")
+13) Test on smallest of mine:
+	cd ~/freesurfer
+	sudo cp /mnt/c/Users/dschwant/Documents/GitHub/mri_to_3d/202004_DS_Brain_MRI/1131_T2_raw.nii.gz .
+	recon-all -i 1131_T2_raw.nii.gz -s DS_T2 -all
+
+
+---------------
+---------------
+https://www.thegeekdiary.com/basic-vi-commands-cheat-sheet/
