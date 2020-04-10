@@ -57,8 +57,25 @@ Install WSL
 	cd ~/freesurfer
 	sudo cp /mnt/c/Users/dschwant/Documents/GitHub/mri_to_3d/202004_DS_Brain_MRI/1131_T2_raw.nii.gz .
 	recon-all -i 1131_T2_raw.nii.gz -s DS_T2 -all
+14) Errored, trying again:
+recon-all -i 1131_MPRAGE_raw.nii.gz -s DS_MPRAGE -all
+mris_convert ~/freesurfer/subjects/DS_MPRAGE/surf/rh.pial rh.stl
+mris_convert ~/freesurfer/subjects/DS_MPRAGE/surf/lh.pial lh.stl
 
+15) Copied resultsing STL to wintemp dir:
 
+16) Try fresurf visualization:
+cd ~/freesurfer/subjects/DS_MPRAGE
+freeview -v \
+    mri/T1.mgz \
+    mri/wm.mgz \
+    mri/brainmask.mgz \
+    mri/aseg.mgz:colormap=lut:opacity=0.2 \
+    -f \
+    surf/lh.white:edgecolor=blue \
+    surf/lh.pial:edgecolor=red \
+    surf/rh.white:edgecolor=blue \
+    surf/rh.pial:edgecolor=red
 ---------------
 ---------------
 https://www.thegeekdiary.com/basic-vi-commands-cheat-sheet/
