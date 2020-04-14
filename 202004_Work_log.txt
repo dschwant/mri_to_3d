@@ -21,7 +21,7 @@
 - https://layerfmri.com/2018/07/25/3d-printing-nii-data/
 - http://freesurfer.net/fswiki/DownloadAndInstall
 
-~->!0irwfJ5!~/
+~->!0vejsW5!~/
 ---------------
 Install WSL 
 ---------------
@@ -64,6 +64,11 @@ Install WSL
 	mris_convert ~/freesurfer/subjects/DS_MPRAGE/surf/rh.pial rh.stl
 	mris_convert ~/freesurfer/subjects/DS_MPRAGE/surf/lh.pial lh.stl
 
+mris_convert --combinesurfs \
+	~/freesurfer/subjects/DS_MPRAGE/surf/lh.pial \
+	~/freesurfer/subjects/DS_MPRAGE/surf/rh.pial \
+	~/freesurfer/subjects/DS_MPRAGE/cortical.stl
+
 15) Copied resultsing STL to wintemp dir:
 	cd subjects/DS_MPRAGE/surf/
 	sudo cp *.stl /mnt/c/Temp/
@@ -105,3 +110,6 @@ IsoSurface -isoval 1 -input binary.nii -Tsmooth 0.1 100  -remesh 0.5 -overwrite 
 https://www.thegeekdiary.com/basic-vi-commands-cheat-sheet/
 
 https://github.com/miykael/3dprintyourbrain
+
+https://socr.umich.edu/HTML5/BrainViewer/
+
