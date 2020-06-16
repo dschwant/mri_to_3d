@@ -25,12 +25,13 @@
 ---------------
 Install WSL 
 ---------------
+- Find new instructions for WSL 2
 - https://arstechnica.com/information-technology/2020/03/the-windows-subsystem-for-linux-conference-was-a-virtual-success/
 - https://superuser.com/questions/1271682/is-there-a-way-of-installing-ubuntu-windows-subsystem-for-linux-on-win10-v170
 - https://www.digitalcitizen.life/how-get-linux-bash-windows-10-3-steps
 - https://docs.microsoft.com/en-us/windows/wsl/faq
 
-1) Win10 serach for features, "Turn Windows features on or off"
+1) Win10 search for features, "Turn Windows features on or off"
 2) Choose "Windows Subsystem for Linux", reboot.
 3) Run Powershell as Admin to get and install appx (since ASML locks down Windows Store):
 	Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile "$Home\Downloads\Ubuntu1804.appx" -UseBasicParsing
@@ -41,6 +42,9 @@ Install WSL
 6) Make sure not on the ASML network (stuff blocked):
 	sudo apt update && sudo apt upgrade
 
+----------
+Run these under WSL
+----------
 7) Pull Freesurfer install to c:\temp\ using Chrome (http://freesurfer.net/fswiki/DownloadAndInstall).
 8) Unzip install of Freesurfer
 	sudo tar -C /usr/local -xzvf /mnt/c/Temp/freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.0.tar.gz
